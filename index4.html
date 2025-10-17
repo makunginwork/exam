@@ -65,6 +65,45 @@
             box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.08) !important;
             background: #fff6f6;
         }
+
+        /* เพิ่ม Mobile Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 13px;
+            }
+            
+            .calc-input {
+                width: 60px;
+                padding: 6px;
+            }
+            
+            .problem-statement {
+                width: 100%;
+                padding: 12px;
+                font-size: 0.9em;
+            }
+            
+            button {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
 <body>

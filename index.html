@@ -17,6 +17,95 @@
     .btn{display:inline-block;padding:8px 12px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none}
     .viewer{margin-top:18px;height:720px;border:0;width:100%;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(16,24,40,0.08)}
     .small-note{margin-top:8px;color:#555;font-size:13px}
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap {
+            margin: 0;
+            padding: 12px;
+        }
+
+        header {
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 20px;
+            line-height: 1.3;
+            padding: 0 10px;
+        }
+
+        .cards {
+            gap: 12px;
+            padding: 0 4px;
+        }
+
+        .card {
+            padding: 16px;
+            margin: 0;
+            box-shadow: 0 2px 8px rgba(16,24,40,0.08);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            font-size: 16px;
+            background: var(--accent);
+            font-weight: 500;
+        }
+
+        .viewer {
+            height: calc(100vh - 420px);
+            min-height: 400px;
+            margin: 20px 0 0 0;
+            border-radius: 0;
+        }
+
+        .small-note {
+            padding: 12px;
+            text-align: center;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            margin: 16px 4px;
+            font-size: 14px;
+        }
+    }
+
+    /* เพิ่ม styles สำหรับหน้าจอขนาดเล็กมาก */
+    @media (max-width: 360px) {
+        h1 {
+            font-size: 18px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+        }
+
+        .card p {
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 12px;
+            font-size: 15px;
+        }
+    }
   </style>
 </head>
 <body>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัด: อรรถประโยชน์ (พร้อมเฉลย)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f8f9fa;
+            --table-bg: #ffffff;
+            --header-bg: #e9f5ff;
+            --border-color: #dee2e6;
+            --text-color: #343a40;
+            --readonly-bg: #f1f3f5;
+            --correct-color: #28a745;
+            --incorrect-color: #dc3545;
+            --primary-button-bg: #007bff;
+            --secondary-button-bg: #6c757d;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: var(--table-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        h3 {
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--header-bg);
+            font-weight: 500;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            text-align: center;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 16px;
+            outline: none;
+            border-radius: 4px;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        /* --- Styling for Answer Feedback --- */
+        input.correct {
+            box-shadow: 0 0 0 2px var(--correct-color);
+        }
+        input.incorrect {
+            box-shadow: 0 0 0 2px var(--incorrect-color);
+        }
+
+        input[readonly] {
+            background-color: var(--readonly-bg);
+            font-weight: 500;
+            cursor: not-allowed;
+        }
+
+        input::placeholder {
+            color: #adb5bd;
+            font-style: italic;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        button {
+            padding: 12px 25px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin: 0 10px;
+        }
+        
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #checkBtn {
+            background-color: var(--primary-button-bg);
+        }
+
+        #resetBtn {
+            background-color: var(--secondary-button-bg);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 แบบฝึกหัด: อรรถประโยชน์รวมและส่วนเพิ่ม</h2>
+
+    <h3>ข้อที่ 1: การอาบแดด ☀️</h3>
+    <table>
+        <thead><tr><th>จำนวนชั่วโมง</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" value="10"></td><td><input type="number" value="10"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" value="18"></td><td><input type="number" placeholder="คำตอบ" data-answer="8"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="24"></td><td><input type="number" value="6"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="28"></td><td><input type="number" value="4"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" value="30"></td><td><input type="number" placeholder="คำตอบ" data-answer="2"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" value="28"></td><td><input type="number" placeholder="คำตอบ" data-answer="-2"></td></tr>
+        </tbody>
+    </table>
+
+    <h3>ข้อที่ 2: การดื่มกาแฟ ☕</h3>
+    <table>
+        <thead><tr><th>จำนวนแก้ว</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" value="12"></td><td><input type="number" value="12"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" value="22"></td><td><input type="number" placeholder="คำตอบ" data-answer="10"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="29"></td><td><input type="number" value="7"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" value="32"></td><td><input type="number" placeholder="คำตอบ" data-answer="3"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="33"></td><td><input type="number" value="1"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" value="33"></td><td><input type="number" placeholder="คำตอบ" data-answer="0"></td></tr>
+        </tbody>
+    </table>
+    
+    <h3>ข้อที่ 3: การกินโดนัท 🍩</h3>
+    <table>
+        <thead><tr><th>จำนวนชิ้น</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="20"></td><td><input type="number" value="20"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" value="35"></td><td><input type="number" placeholder="คำตอบ" data-answer="15"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" value="45"></td><td><input type="number" placeholder="คำตอบ" data-answer="10"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="53"></td><td><input type="number" value="8"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" value="55"></td><td><input type="number" placeholder="คำตอบ" data-answer="2"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="53"></td><td><input type="number" value="-2"></td></tr>
+        </tbody>
+    </table>
+
+    <h3>ข้อที่ 4: การฟังเพลง 🎵</h3>
+    <table>
+        <thead><tr><th>จำนวนเพลง</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" value="25"></td><td><input type="number" value="25"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" value="45"></td><td><input type="number" placeholder="คำตอบ" data-answer="20"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="60"></td><td><input type="number" value="15"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" value="70"></td><td><input type="number" placeholder="คำตอบ" data-answer="10"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="75"></td><td><input type="number" value="5"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" value="75"></td><td><input type="number" placeholder="คำตอบ" data-answer="0"></td></tr>
+        </tbody>
+    </table>
+
+    <h3>ข้อที่ 5: การเล่นเกม 🎮</h3>
+    <table>
+        <thead><tr><th>จำนวนชั่วโมง</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" value="30"></td><td><input type="number" value="30"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" value="55"></td><td><input type="number" placeholder="คำตอบ" data-answer="25"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" value="75"></td><td><input type="number" placeholder="คำตอบ" data-answer="20"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="85"></td><td><input type="number" value="10"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" value="90"></td><td><input type="number" placeholder="คำตอบ" data-answer="5"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="90"></td><td><input type="number" value="0"></td></tr>
+        </tbody>
+    </table>
+
+    <h3>ข้อที่ 6: การอ่านหนังสือ 📚</h3>
+    <table>
+        <thead><tr><th>จำนวนบท</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="18"></td><td><input type="number" value="18"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" value="34"></td><td><input type="number" placeholder="คำตอบ" data-answer="16"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" value="48"></td><td><input type="number" placeholder="คำตอบ" data-answer="14"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" value="60"></td><td><input type="number" placeholder="คำตอบ" data-answer="12"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="66"></td><td><input type="number" value="6"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" value="68"></td><td><input type="number" placeholder="คำตอบ" data-answer="2"></td></tr>
+        </tbody>
+    </table>
+    
+    <h3>ข้อที่ 7: การกินซูชิ 🍣</h3>
+    <table>
+        <thead><tr><th>จำนวนคำ</th><th>TU</th><th>MU</th></tr></thead>
+        <tbody>
+            <tr><td><input type="number" value="1" readonly></td><td><input type="number" value="40"></td><td><input type="number" value="40"></td></tr>
+            <tr><td><input type="number" value="2" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="70"></td><td><input type="number" value="30"></td></tr>
+            <tr><td><input type="number" value="3" readonly></td><td><input type="number" value="95"></td><td><input type="number" placeholder="คำตอบ" data-answer="25"></td></tr>
+            <tr><td><input type="number" value="4" readonly></td><td><input type="number" value="110"></td><td><input type="number" placeholder="คำตอบ" data-answer="15"></td></tr>
+            <tr><td><input type="number" value="5" readonly></td><td><input type="number" value="120"></td><td><input type="number" placeholder="คำตอบ" data-answer="10"></td></tr>
+            <tr><td><input type="number" value="6" readonly></td><td><input type="number" placeholder="คำตอบ" data-answer="115"></td><td><input type="number" value="-5"></td></tr>
+        </tbody>
+    </table>
+
+    <div class="button-container">
+        <button id="checkBtn">✅ ตรวจคำตอบ</button>
+        <button id="resetBtn">🔄 เริ่มใหม่</button>
+    </div>
+</div>
+
+<script>
+    const checkBtn = document.getElementById('checkBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const answerInputs = document.querySelectorAll('input[data-answer]');
+
+    checkBtn.addEventListener('click', () => {
+        answerInputs.forEach(input => {
+            const userAnswer = input.value;
+            const correctAnswer = input.dataset.answer;
+
+            // Remove previous classes
+            input.classList.remove('correct', 'incorrect');
+
+            if (userAnswer === '') {
+                input.classList.add('incorrect');
+            } else if (userAnswer === correctAnswer) {
+                input.classList.add('correct');
+            } else {
+                input.classList.add('incorrect');
+            }
+        });
+    });
+
+    resetBtn.addEventListener('click', () => {
+        answerInputs.forEach(input => {
+            input.value = '';
+            input.classList.remove('correct', 'incorrect');
+        });
+    });
+</script>
+
+</body>
+</html>

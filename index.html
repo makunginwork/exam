@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>เมนูหลัก — แบบฝึกหัด</title>
+  <style>
+    :root{--bg:#f4f6fb;--card:#fff;--accent:#2b6cb0}
+    html,body{height:100%;margin:0;font-family:Inter,Arial, sans-serif;background:var(--bg);color:#222}
+    .wrap{max-width:1200px;margin:24px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{margin:0;font-size:20px}
+    .cards{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,40,0.06);flex:1 1 300px;min-width:250px}
+    .card h3{margin:0 0 8px 0;font-size:16px}
+    .card p{margin:0 0 12px 0;color:#444}
+    .btn{display:inline-block;padding:8px 12px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none}
+    .viewer{margin-top:18px;height:720px;border:0;width:100%;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(16,24,40,0.08)}
+    .small-note{margin-top:8px;color:#555;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <!-- เอาปุ่มด้านบนออกแล้ว เหลือเฉพาะหัวเรื่อง -->
+      <h1>เมนูหลัก — แบบฝึกหัดเศรษฐศาสตร์</h1>
+    </header>
+
+    <div class="cards">
+      <div class="card">
+        <h3>ตารางต้นทุนการผลิต</h3>
+        <p>ตารางและแบบฝึกหัดเรื่องต้นทุน (ไฟล์: index.html)</p>
+        <a class="btn" href="#" data-src="index2.html">โหลดในหน้า</a>
+      </div>
+      <div class="card">
+        <h3>แบบฝึกหัด TU / MU (พร้อมเฉลย)</h3>
+        <p>เช็คคำตอบอัตโนมัติ (ไฟล์: index3.html)</p>
+        <a class="btn" href="#" data-src="index3.html">โหลดในหน้า</a>
+      </div>
+      <div class="card">
+        <h3>ดุลยภาพผู้บริโภค</h3>
+        <p>คำนวณ MU/P และหาดุลยภาพ (ไฟล์: index4.html)</p>
+        <a class="btn" href="#" data-src="index4.html">โหลดในหน้า</a>
+      </div>
+    </div>
+
+    <div class="small-note">หมายเหตุ: ถ้าใช้ Live Server ให้เปิดไฟล์นี้ (portal.html) ผ่าน Live Server เพื่อให้การโหลดไฟล์ภายในทำงานได้เต็มที่</div>
+
+    <iframe id="viewer" class="viewer" src="index2.html" title="viewer"></iframe>
+  </div>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    document.querySelectorAll('[data-src]').forEach(el=>{
+      el.addEventListener('click', e=>{
+        e.preventDefault();
+        const src = el.dataset.src;
+        viewer.src = src;
+        // highlight active
+        document.querySelectorAll('[data-src]').forEach(a=>a.style.opacity=1);
+        el.style.opacity = 0.9;
+      });
+    });
+  </script>
+</body>
+</html>

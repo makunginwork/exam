@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัด: การหาดุลยภาพของผู้บริโภค</title>
+    <style>
+        body { font-family: 'Tahoma', 'sans-serif'; margin: 20px; padding-bottom: 50px; background-color: #f7f9fc; color: #333; }
+        .container { max-width: 950px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .problem-box { margin-bottom: 40px; }
+        table { width: 100%; margin: 20px auto; border-collapse: collapse; }
+        th, td { border: 1px solid #dfe6e9; padding: 10px; text-align: center; vertical-align: middle; }
+        th { background-color: #f2f5f8; font-weight: bold; }
+        h2 { text-align: center; color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 10px; margin-bottom: 20px;}
+        .problem-statement {
+            width: 95%;
+            margin: 15px auto;
+            padding: 15px;
+            background-color: #eef7ff;
+            border-left: 5px solid #007bff;
+            line-height: 1.7;
+            font-size: 1.1em;
+        }
+        .calc-input {
+            width: 85%;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #b2bec3;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        .button-container { text-align: center; margin-top: 20px; }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover { background-color: #218838; }
+        .result-container {
+            width: 95%;
+            margin: 20px auto 0 auto;
+            padding: 15px;
+            border: 1px solid #fdcb6e;
+            border-radius: 5px;
+            background-color: #fff9e6;
+            font-size: 1.1em;
+            line-height: 1.8;
+            display: none; /* Hidden by default */
+        }
+
+        /* validation styles */
+        input.correct {
+            border-color: #28a745 !important;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12) !important;
+            background: #f6fff6;
+        }
+        input.incorrect {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.08) !important;
+            background: #fff6f6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 1</h2>
+        <div class="problem-statement" id="problem1" data-budget="70" data-px="40" data-py="15">
+            <b>โจทย์:</b> มานีมีงบสำหรับมื้อกลางวัน <b>70 บาท</b> ต้องการซื้อก๋วยเตี๋ยว (สินค้า X) ราคาชามละ <b>40 บาท</b> และน้ำอัดลม (สินค้า Y) ราคาขวดละ <b>15 บาท</b> โดยมีตารางอรรถประโยชน์รวม (TU) ดังนี้ จงหาดุลยภาพของผู้บริโภค
+        </div>
+        <table id="table1">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (ก๋วยเตี๋ยว)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (น้ำอัดลม)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>80</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>50</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>140</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>80</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>180</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>100</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>4</td><td>200</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>115</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem1','table1','result1')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result1"></div>
+    </div>
+
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 2</h2>
+        <div class="problem-statement" id="problem2" data-budget="290" data-px="100" data-py="30">
+            <b>โจทย์:</b> สมชายมีงบสำหรับของว่าง <b>290 บาท</b> และต้องการซื้อพิซซ่า (สินค้า X) ราคาชิ้นละ <b>100 บาท</b> และไอศกรีม (สินค้า Y) ราคาถ้วยละ <b>30 บาท</b> โดยมีตารางอรรถประโยชน์รวม (TU) ดังนี้ จงคำนวณหาชุดสินค้าที่สมชายจะเลือกบริโภค
+        </div>
+        <table id="table2">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (พิซซ่า)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (ไอศกรีม)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>200</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>100</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>350</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>175</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>450</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>220</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>4</td><td>530</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>250</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>5</td><td>600</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>270</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem2','table2','result2')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result2"></div>
+    </div>
+    
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 3</h2>
+        <div class="problem-statement" id="problem3" data-budget="380" data-px="220" data-py="80">
+            <b>โจทย์:</b> สุนีย์มีงบสำหรับดูหนัง <b>380 บาท</b> เธอต้องการซื้อตั๋วหนัง (สินค้า X) ราคาใบละ <b>220 บาท</b> และป๊อปคอร์น (สินค้า Y) ราคาชุดละ <b>80 บาท</b> โดยมีตารางอรรถประโยชน์รวม (TU) ดังนี้ จงหาการบริโภคที่เหมาะสมที่สุด
+        </div>
+        <table id="table3">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (ตั๋วหนัง)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (ป๊อปคอร์น)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>550</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>250</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>880</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>450</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>1100</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>600</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>4</td><td>1210</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>700</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem3','table3','result3')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result3"></div>
+    </div>
+
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 4</h2>
+        <div class="problem-statement" id="problem4" data-budget="1500" data-px="1200" data-py="100">
+            <b>โจทย์:</b> วินัยมีงบ <b>1,500 บาท</b> สำหรับซื้อของเกี่ยวกับเกม เขาต้องการซื้อเกมใหม่ (สินค้า X) ราคา <b>1,200 บาท</b> และเครื่องดื่มชูกำลัง (สินค้า Y) ราคา <b>100 บาท</b> จากข้อมูล TU ต่อไปนี้ เขาควรซื้ออย่างละกี่หน่วย
+        </div>
+        <table id="table4">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (เกมใหม่)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (เครื่องดื่ม)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>1440</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>200</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>2400</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>340</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>3000</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>460</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem4','table4','result4')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result4"></div>
+    </div>
+
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 5</h2>
+        <div class="problem-statement" id="problem5" data-budget="420" data-px="150" data-py="40">
+            <b>โจทย์:</b> สมศรีมีงบ <b>420 บาท</b> สำหรับซื้อวัตถุดิบทำขนม เธอต้องการซื้อแป้งเค้ก (สินค้า X) ราคาถุงละ <b>150 บาท</b> และช็อกโกแลตชิพ (สินค้า Y) ราคาถุงละ <b>40 บาท</b> จากข้อมูล TU ต่อไปนี้ จงหาจุดบริโภคที่เหมาะสมที่สุด
+        </div>
+        <table id="table5">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (แป้งเค้ก)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (ช็อกโกแลตชิพ)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>200</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>50</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>320</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>90</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>410</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>122</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>4</td><td>470</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>142</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem5','table5','result5')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result5"></div>
+    </div>
+
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 6</h2>
+        <div class="problem-statement" id="problem6" data-budget="300" data-px="50" data-py="75">
+            <b>โจทย์:</b> ปรีชามีงบ <b>300 บาท</b> สำหรับซื้อเครื่องเขียน เขาต้องการซื้อปากกา (สินค้า X) ราคาด้ามละ <b>50 บาท</b> และสมุดบันทึก (สินค้า Y) ราคาเล่มละ <b>75 บาท</b> จากข้อมูล TU ต่อไปนี้ จงหาจุดดุลยภาพของปรีชา
+        </div>
+        <table id="table6">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (ปากกา)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (สมุดบันทึก)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>70</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>80</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>120</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>140</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>160</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>185</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>4</td><td>190</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>215</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem6','table6','result6')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result6"></div>
+    </div>
+
+    <div class="problem-box">
+        <h2>แบบฝึกหัดข้อที่ 7</h2>
+        <div class="problem-statement" id="problem7" data-budget="220" data-px="80" data-py="60">
+            <b>โจทย์:</b> สุดามีงบ <b>220 บาท</b> สำหรับอาหารเพื่อสุขภาพ เธอต้องการซื้อสลัด (สินค้า X) ราคากล่องละ <b>80 บาท</b> และน้ำผลไม้ปั่น (สินค้า Y) ราคาแก้วละ <b>60 บาท</b> จากข้อมูล TU ต่อไปนี้ สุดาควรบริโภคอย่างละเท่าใด
+        </div>
+        <table id="table7">
+            <thead>
+                <tr>
+                    <th>ปริมาณ (Q)</th>
+                    <th>TU<sub>X</sub> (สลัด)</th>
+                    <th>MU<sub>X</sub></th>
+                    <th>MU<sub>X</sub>/P<sub>X</sub></th>
+                    <th>TU<sub>Y</sub> (น้ำผลไม้ปั่น)</th>
+                    <th>MU<sub>Y</sub></th>
+                    <th>MU<sub>Y</sub>/P<sub>Y</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>150</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>90</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>270</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>165</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>3</td><td>360</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>225</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>4</td><td>420</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>270</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="checkProblem('problem7','table7','result7')">🔎 ตรวจคำตอบ</button>
+        </div>
+        <div class="result-container" id="result7"></div>
+    </div>
+
+</div>
+
+<script>
+/**
+ * checkProblem:
+ * - คำนวณ MU และ MU/P จากค่าที่เป็น TU ในตาราง
+ * - เปรียบเทียบกับค่าที่ผู้ใช้กรอกในช่อง input (ตำแหน่ง MU และ MU/P)
+ * - ใส่คลาส .correct / .incorrect ให้แต่ละ input
+ * - แสดงสรุปจำนวนที่ถูกต้อง
+ */
+function checkProblem(problemId, tableId, resultId) {
+    const tol = 0.015; // tolerance for numeric comparison
+    const problem = document.getElementById(problemId);
+    const table = document.getElementById(tableId);
+    const result = document.getElementById(resultId);
+
+    const priceX = parseFloat(problem.dataset.px);
+    const priceY = parseFloat(problem.dataset.py);
+
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    let prevTuX = 0;
+    let prevTuY = 0;
+    let totalChecks = 0;
+    let correctChecks = 0;
+
+    // Clear previous styles
+    rows.forEach(r => {
+        const inputs = r.querySelectorAll('input.calc-input');
+        inputs.forEach(i => i.classList.remove('correct', 'incorrect'));
+    });
+
+    rows.forEach((row) => {
+        const cells = row.cells;
+        // TU values are in cells[1] and cells[4] (text content)
+        const tuX = parseFloat(cells[1].textContent);
+        const tuY = parseFloat(cells[4].textContent);
+
+        // Correct MU and MU/P
+        const muX = tuX - prevTuX;
+        const mux_per_p = muX / priceX;
+
+        const muY = tuY - prevTuY;
+        const muy_per_p = muY / priceY;
+
+        // Inputs: cells[2] -> MUx input, cells[3] -> MUx/P input
+        const inputMuX = cells[2].querySelector('input.calc-input');
+        const inputMuxP = cells[3].querySelector('input.calc-input');
+
+        const inputMuY = cells[5].querySelector('input.calc-input');
+        const inputMuyP = cells[6].querySelector('input.calc-input');
+
+        // Compare user input with correct values (if user left empty, mark incorrect)
+        compareAndMark(inputMuX, muX);
+        compareAndMark(inputMuxP, mux_per_p);
+        compareAndMark(inputMuY, muY);
+        compareAndMark(inputMuyP, muy_per_p);
+
+        prevTuX = tuX;
+        prevTuY = tuY;
+    });
+
+    // helper
+    function compareAndMark(inputEl, correctVal) {
+        if (!inputEl) return;
+        totalChecks++;
+        inputEl.classList.remove('correct', 'incorrect');
+
+        const userVal = parseFloat(inputEl.value);
+        if (!isNaN(userVal) && Math.abs(userVal - correctVal) < tol) {
+            inputEl.classList.add('correct');
+            correctChecks++;
+        } else {
+            inputEl.classList.add('incorrect');
+        }
+    }
+
+    // show summary
+    result.style.display = 'block';
+    result.innerHTML = `<strong>ผลตรวจ:</strong> ถูกต้อง ${correctChecks} / ${totalChecks} ช่อง<br>
+    หมายเหตุ: MU คำนวณจากการต่างของ TU (ΔTU) และ MU/P คือ MU หารด้วยราคา (P).`;
+}
+</script>
+
+</body>
+</html>

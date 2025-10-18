@@ -554,9 +554,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function validateInput(inputElement, correctValue) {
         inputElement.classList.remove('correct', 'incorrect');
         const userValue = parseFloat(inputElement.value);
+        
+        // Round both values to 2 decimal places
+        const roundedUserValue = Math.round(userValue * 100) / 100;
+        const roundedCorrectValue = Math.round(correctValue * 100) / 100;
 
-        // ตรวจสอบค่าโดยเผื่อค่าคลาดเคลื่อนของทศนิยม
-        if (!isNaN(userValue) && Math.abs(userValue - correctValue) < 0.015) {
+        // Compare rounded values
+        if (!isNaN(userValue) && roundedUserValue === roundedCorrectValue) {
             inputElement.classList.add('correct');
         } else {
             inputElement.classList.add('incorrect');

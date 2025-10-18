@@ -388,7 +388,12 @@ function checkProblem(problemId, tableId, resultId) {
         inputEl.classList.remove('correct', 'incorrect');
 
         const userVal = parseFloat(inputEl.value);
-        if (!isNaN(userVal) && Math.abs(userVal - correctVal) < tol) {
+        
+        // Round both values to 2 decimal places
+        const roundedUserVal = Math.round(userVal * 100) / 100;
+        const roundedCorrectVal = Math.round(correctVal * 100) / 100;
+
+        if (!isNaN(userVal) && roundedUserVal === roundedCorrectVal) {
             inputEl.classList.add('correct');
             correctChecks++;
         } else {

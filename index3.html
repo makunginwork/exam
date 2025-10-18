@@ -279,15 +279,19 @@
 
     checkBtn.addEventListener('click', () => {
         answerInputs.forEach(input => {
-            const userAnswer = input.value;
-            const correctAnswer = input.dataset.answer;
+            const userAnswer = parseFloat(input.value);
+            const correctAnswer = parseFloat(input.dataset.answer);
+            
+            // Round both values to 2 decimal places
+            const roundedUserAnswer = Math.round(userAnswer * 100) / 100;
+            const roundedCorrectAnswer = Math.round(correctAnswer * 100) / 100;
 
             // Remove previous classes
             input.classList.remove('correct', 'incorrect');
 
-            if (userAnswer === '') {
+            if (isNaN(userAnswer)) {
                 input.classList.add('incorrect');
-            } else if (userAnswer === correctAnswer) {
+            } else if (roundedUserAnswer === roundedCorrectAnswer) {
                 input.classList.add('correct');
             } else {
                 input.classList.add('incorrect');

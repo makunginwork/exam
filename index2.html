@@ -98,6 +98,34 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px auto 0;
+            flex-wrap: wrap;
+        }
+
+        .solution-btn, .reset-btn {
+            padding: 12px 20px;
+            font-size: 1em;
+            font-weight: 600;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .solution-btn { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
+        .reset-btn { background: linear-gradient(135deg, #898c90 0%, #6c757d 100%); }
+
+        .solution-btn:hover, .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
         input.correct {
             border-color: #28a745 !important;
             box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2) !important;
@@ -135,6 +163,13 @@
             .check-btn {
                 width: 100%;
                 margin: 20px 0;
+            }
+            .button-container {
+                flex-direction: column;
+            }
+            .solution-btn, .reset-btn, .check-btn {
+                width: 100%;
+                margin: 5px 0;
             }
         }
     </style>
@@ -231,7 +266,11 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="check-btn">ตรวจสอบคำตอบ</button>
+            <div class="button-container">
+                <button class="check-btn">ตรวจสอบคำตอบ</button>
+                <button class="solution-btn">💡 แสดงเฉลย</button>
+                <button class="reset-btn">🔄 เริ่มใหม่</button>
+            </div>
         </div>
 
         <div class="problem-section">
@@ -322,7 +361,11 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="check-btn">ตรวจสอบคำตอบ</button>
+            <div class="button-container">
+                <button class="check-btn">ตรวจสอบคำตอบ</button>
+                <button class="solution-btn">💡 แสดงเฉลย</button>
+                <button class="reset-btn">🔄 เริ่มใหม่</button>
+            </div>
         </div>
 
         <div class="problem-section">
@@ -413,7 +456,11 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="check-btn">ตรวจสอบคำตอบ</button>
+            <div class="button-container">
+                <button class="check-btn">ตรวจสอบคำตอบ</button>
+                <button class="solution-btn">💡 แสดงเฉลย</button>
+                <button class="reset-btn">🔄 เริ่มใหม่</button>
+            </div>
         </div>
 
         <div class="problem-section">
@@ -504,15 +551,19 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="check-btn">ตรวจสอบคำตอบ</button>
+            <div class="button-container">
+                <button class="check-btn">ตรวจสอบคำตอบ</button>
+                <button class="solution-btn">💡 แสดงเฉลย</button>
+                <button class="reset-btn">🔄 เริ่มใหม่</button>
+            </div>
         </div>
 
     </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // ฟังก์ชันสำหรับตรวจสอบคำตอบในตาราง
-    function checkAnswers(button) {
+    // ฟังก์ชันสำหรับคำนวณและแสดงเฉลย
+    function showSolutions(button) {
         const problemSection = button.closest('.problem-section');
         const table = problemSection.querySelector('table');
         const rows = table.querySelectorAll('tbody tr');
@@ -524,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const TFC = parseFloat(cells[1].textContent);
             const TVC = parseFloat(cells[2].textContent);
             
-            // สำหรับการคำนวณ MC แถวแรก, TC ก่อนหน้าคือ TFC (ต้นทุนที่ Q=0)
+            // สำหรับแถวแรก, TC ก่อนหน้าคือ TFC (ต้นทุนที่ Q=0)
             if (index === 0) {
                 previousTC = TFC;
             }
@@ -536,42 +587,84 @@ document.addEventListener('DOMContentLoaded', () => {
             const correctAFC = TFC / Q;
             const correctAVC = TVC / Q;
             const correctAC = correctTC / Q;
-            const correctMC = (correctTC - previousTC); // ΔQ คือ 1 เสมอ
+            const correctMC = correctTC - previousTC;
 
-            // ตรวจสอบแต่ละช่อง
-            validateInput(inputs[0], correctTC);
-            validateInput(inputs[1], correctAFC);
-            validateInput(inputs[2], correctAVC);
-            validateInput(inputs[3], correctAC);
-            validateInput(inputs[4], correctMC);
+            // เติมค่าลงในช่อง input
+            inputs[0].value = correctTC.toFixed(2);
+            inputs[1].value = correctAFC.toFixed(2);
+            inputs[2].value = correctAVC.toFixed(2);
+            inputs[3].value = correctAC.toFixed(2);
+            inputs[4].value = correctMC.toFixed(2);
 
-            // อัปเดตค่า TC ก่อนหน้าสำหรับแถวถัดไป
+            // อัปเดต TC ก่อนหน้าสำหรับแถวถัดไป
             previousTC = correctTC;
         });
     }
 
-    // ฟังก์ชันสำหรับเปรียบเทียบค่าและเปลี่ยนสี input
-    function validateInput(inputElement, correctValue) {
-        inputElement.classList.remove('correct', 'incorrect');
-        const userValue = parseFloat(inputElement.value);
-        
-        // Round both values to 2 decimal places
-        const roundedUserValue = Math.round(userValue * 100) / 100;
-        const roundedCorrectValue = Math.round(correctValue * 100) / 100;
+    // ฟังก์ชันสำหรับตรวจสอบคำตอบ
+    function checkAnswers(button) {
+        const problemSection = button.closest('.problem-section');
+        const table = problemSection.querySelector('table');
+        const rows = table.querySelectorAll('tbody tr');
+        let previousTC = 0;
 
-        // Compare rounded values
-        if (!isNaN(userValue) && roundedUserValue === roundedCorrectValue) {
-            inputElement.classList.add('correct');
-        } else {
-            inputElement.classList.add('incorrect');
-        }
+        rows.forEach((row, index) => {
+            const cells = row.querySelectorAll('td');
+            const Q = parseFloat(cells[0].textContent);
+            const TFC = parseFloat(cells[1].textContent);
+            const TVC = parseFloat(cells[2].textContent);
+
+            if (index === 0) {
+                previousTC = TFC;
+            }
+
+            const inputs = row.querySelectorAll('input[type="number"]');
+            
+            const correctTC = TFC + TVC;
+            const correctAFC = TFC / Q;
+            const correctAVC = TVC / Q;
+            const correctAC = correctTC / Q;
+            const correctMC = correctTC - previousTC;
+
+            const correctValues = [correctTC, correctAFC, correctAVC, correctAC, correctMC];
+
+            inputs.forEach((input, i) => {
+                const userValue = parseFloat(input.value);
+                // ปัดเศษทั้งสองค่าเป็น 2 ตำแหน่งก่อนเปรียบเทียบ
+                const roundedUserValue = Math.round(userValue * 100) / 100;
+                const roundedCorrectValue = Math.round(correctValues[i] * 100) / 100;
+
+                input.classList.remove('correct', 'incorrect');
+                if (!isNaN(userValue) && roundedUserValue === roundedCorrectValue) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            });
+
+            previousTC = correctTC;
+        });
     }
 
-    // เพิ่ม Event Listener ให้กับทุกปุ่ม "ตรวจสอบคำตอบ"
-    const checkButtons = document.querySelectorAll('.check-btn');
-    checkButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            checkAnswers(button);
+    // เพิ่ม Event Listener ให้กับทุกปุ่มในแต่ละข้อ
+    document.querySelectorAll('.problem-section').forEach(section => {
+        const checkBtn = section.querySelector('.check-btn');
+        const solutionBtn = section.querySelector('.solution-btn');
+        const resetBtn = section.querySelector('.reset-btn');
+
+        checkBtn.addEventListener('click', () => checkAnswers(checkBtn));
+        
+        solutionBtn.addEventListener('click', () => {
+            showSolutions(solutionBtn);
+            checkAnswers(checkBtn); // ตรวจสอบและใส่สีให้เลย
+        });
+
+        resetBtn.addEventListener('click', () => {
+            const inputs = section.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
         });
     });
 });

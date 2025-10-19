@@ -42,6 +42,14 @@
             transition: background-color 0.3s;
         }
         button:hover { background-color: #218838; }
+
+        .solution-btn {
+            background-color: #ffc107;
+        }
+        .solution-btn:hover {
+            background-color: #e0a800;
+        }
+
         .result-container {
             width: 95%;
             margin: 20px auto 0 auto;
@@ -136,6 +144,7 @@
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem1','table1','result1')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem1','table1')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result1"></div>
     </div>
@@ -167,6 +176,7 @@
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem2','table2','result2')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem2','table2')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result2"></div>
     </div>
@@ -197,6 +207,7 @@
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem3','table3','result3')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem3','table3')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result3"></div>
     </div>
@@ -220,12 +231,13 @@
             </thead>
             <tbody>
                 <tr><td>1</td><td>1440</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>200</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
-                <tr><td>2</td><td>2400</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>340</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
+                <tr><td>2</td><td>2400</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>340</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></tr>
                 <tr><td>3</td><td>3000</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td><td>460</td><td><input type="number" class="calc-input"></td><td><input type="number" class="calc-input"></td></tr>
             </tbody>
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem4','table4','result4')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem4','table4')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result4"></div>
     </div>
@@ -256,6 +268,7 @@
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem5','table5','result5')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem5','table5')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result5"></div>
     </div>
@@ -286,6 +299,7 @@
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem6','table6','result6')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem6','table6')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result6"></div>
     </div>
@@ -316,6 +330,7 @@
         </table>
         <div class="button-container">
             <button onclick="checkProblem('problem7','table7','result7')">🔎 ตรวจคำตอบ</button>
+            <button class="solution-btn" onclick="showSolution('problem7','table7')">💡 แสดงเฉลย</button>
         </div>
         <div class="result-container" id="result7"></div>
     </div>
@@ -323,6 +338,54 @@
 </div>
 
 <script>
+/**
+ * showSolution:
+ * - คำนวณและเติมคำตอบที่ถูกต้องลงในทุกช่อง
+ * - ใส่คลาส .correct ให้ทุกช่อง
+ */
+function showSolution(problemId, tableId) {
+    const problem = document.getElementById(problemId);
+    const table = document.getElementById(tableId);
+    const priceX = parseFloat(problem.dataset.px);
+    const priceY = parseFloat(problem.dataset.py);
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    let prevTuX = 0;
+    let prevTuY = 0;
+
+    rows.forEach((row) => {
+        const cells = row.cells;
+        const tuX = parseFloat(cells[1].textContent);
+        const tuY = parseFloat(cells[4].textContent);
+
+        const muX = tuX - prevTuX;
+        const mux_per_p = muX / priceX;
+        const muY = tuY - prevTuY;
+        const muy_per_p = muY / priceY;
+
+        const inputMuX = cells[2].querySelector('input.calc-input');
+        const inputMuxP = cells[3].querySelector('input.calc-input');
+        const inputMuY = cells[5].querySelector('input.calc-input');
+        const inputMuyP = cells[6].querySelector('input.calc-input');
+
+        // Fill and mark as correct
+        const fillAndMark = (input, value) => {
+            if (input) {
+                input.value = (Math.round(value * 100) / 100).toFixed(2);
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            }
+        };
+
+        fillAndMark(inputMuX, muX);
+        fillAndMark(inputMuxP, mux_per_p);
+        fillAndMark(inputMuY, muY);
+        fillAndMark(inputMuyP, muy_per_p);
+
+        prevTuX = tuX;
+        prevTuY = tuY;
+    });
+}
+
 /**
  * checkProblem:
  * - คำนวณ MU และ MU/P จากค่าที่เป็น TU ในตาราง
